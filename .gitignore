@@ -12,3 +12,7 @@ logs
 results
 
 npm-debug.log
+node_modules
+
+lib/j.js
+test/main.out.js

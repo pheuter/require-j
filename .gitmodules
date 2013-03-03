@@ -1,0 +1,3 @@
+[submodule "lib/jade"]
+	path = lib/jade
+	url = git://github.com/visionmedia/jade.git

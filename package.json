@@ -1,0 +1,27 @@
+{
+  "name": "require-j",
+  "description": "RequireJS Jade plugin that supports template inheritance.",
+  "version": "0.0.1",
+  "keywords": [
+      "requirejs",
+      "jade",
+      "template",
+      "client",
+      "js"
+  ],
+  "url": "https://github.com/pheuter/r-jade",
+  "author": {
+    "name": "Mark Fayngersh",
+    "email": "mark.fayngersh@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pheuter/r-jade.git"
+  },
+  "dependencies": {
+    "requirejs": ">=2.1.4"
+  },
+  "devDependencies": {
+    "coffee-script": "1.5.0"
+  }
+}
