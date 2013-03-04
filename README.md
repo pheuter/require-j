@@ -23,4 +23,4 @@ $ npm install
 $ cake test
 ```
 
-*Will create **test/main.out.js***
+*Will create `/main.out.js`*
