@@ -1,4 +1,4 @@
-# r-jade
+# require-j
 
 RequireJS Jade plugin that supports template inheritance.
 

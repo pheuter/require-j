@@ -9,11 +9,11 @@
   },
   stubModules: [
     "j",
-    "jade"
+    "jade" // Would eventually not be stubbed out, to provide helper functions
   ],
   shim: {
     jade: {
-      exports: "Jade"
+      exports: "window.jade"
     }
   }
 })
