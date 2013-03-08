@@ -18,10 +18,8 @@
     "type": "git",
     "url": "git://github.com/pheuter/r-jade.git"
   },
-  "dependencies": {
-    "requirejs": ">=2.1.4"
-  },
   "devDependencies": {
-    "coffee-script": "1.5.0"
+    "coffee-script": "1.5.0",
+    "requirejs": ">=2.1.4"
   }
 }

@@ -6,7 +6,11 @@ define (require) ->
   jade = require 'jade'
   {compile} = jade
 
-  progIds = ["Msxml2.XMLHTTP", "Microsoft.XMLHTTP", "Msxml2.XMLHTTP.4.0"]
+  progIds = [
+    "Msxml2.XMLHTTP"
+    "Microsoft.XMLHTTP"
+    "Msxml2.XMLHTTP.4.0"
+  ]
   
   fetchText = ->
     throw new Error("Environment unsupported.")
@@ -14,8 +18,8 @@ define (require) ->
   if process?.versions?.node?
     fs = nodeRequire 'fs'
 
-    fetchText = (path) ->
-      fs.readFileSync path, "utf8"
+    fetchText = (path, callback) ->
+      callback fs.readFileSync path, "utf8"
 
   else if (window?.navigator? and window?.document?) or importScripts?
     getXhr = ->
@@ -76,20 +80,19 @@ define (require) ->
       path = @expect("include").val.trim()
       path += ".jade" if path.indexOf(".") is -1
 
-      str = fetchText baseUrl + path
+      fetchText baseUrl + path, (str) =>
+        parser = new jade.Parser str, path, @options
+        parser.blocks = jade.utils.merge {}, @blocks
+        parser.mixins = @mixins
 
-      parser = new jade.Parser str, path, @options
-      parser.blocks = jade.utils.merge {}, @blocks
-      parser.mixins = @mixins
+        @context parser
+        ast = parser.parse()
+        @context()
+        ast.filename = path
 
-      @context parser
-      ast = parser.parse()
-      @context()
-      ast.filename = path
+        ast.includeBlock().push(@block()) if "indent" is @peek().type
 
-      ast.includeBlock().push(@block()) if "indent" is @peek().type
-
-      return ast
+        return ast
 
     jade.Parser::parseExtends = ->
       baseUrl = require.toUrl '.'
@@ -97,15 +100,14 @@ define (require) ->
       path = @expect("extends").val.trim()
       path += ".jade" if path.indexOf(".") is -1
 
-      str = fetchText baseUrl + path
+      fetchText baseUrl + path, (str) =>
+        parser = new jade.Parser str, path, @options
+        parser.blocks = @blocks
+        parser.contexts = @contexts
 
-      parser = new jade.Parser str, path, @options
-      parser.blocks = @blocks
-      parser.contexts = @contexts
+        @extending = parser
 
-      @extending = parser
-
-      new jade.nodes.Literal("")
+        new jade.nodes.Literal("")
 
   buildMap = {}
 
@@ -115,13 +117,13 @@ define (require) ->
     load: (name, parentRequire, onload, config) ->
       path = parentRequire.toUrl name + '.jade'
 
-      text = fetchText path
-      func = compile text,
-        client: true
+      fetchText path, (text) ->
+        func = compile text,
+          client: true
 
-      buildMap[name] = func if config.isBuild
+        buildMap[name] = func if config.isBuild
 
-      onload()
+        onload()
 
     write: (pluginName, moduleName, write) ->
       if moduleName of buildMap
@@ -130,7 +132,7 @@ define (require) ->
         write.asModule pluginName + "!" + moduleName,
           """
           define(function() {
-            return #{func}
+            return #{func};
           });
           """
 
