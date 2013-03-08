@@ -1,4 +1,12 @@
 define(function(require) {
   var template = require('j!templates/template');
-  template();  
+  var layoutCopy = require('j!templates/layout_copy');
+
+  $(document).ready(function() {
+    $('body').append('<h1>Testing include</h1>');
+    $('body').append(layoutCopy());
+
+    $('body').append('<h1>Testing extends</h1>');
+    $('body').append(template());
+  });
 });

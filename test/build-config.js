@@ -1,15 +1,17 @@
 ({
   baseUrl: ".",
-  name: "main",
+  name: "almond",
+  include: ['main'],
+  insertRequire: ['main'],
   out: "main.out.js",
+  wrap: true,
   optimize: "none",
   paths: {
     jade: "../lib/jade/jade",
     j: "../lib/j"
   },
   stubModules: [
-    "j",
-    "jade" // Would eventually not be stubbed out, to provide helper functions
+    "j"
   ],
   shim: {
     jade: {

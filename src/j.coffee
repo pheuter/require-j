@@ -11,7 +11,7 @@ define (require) ->
   fetchText = ->
     throw new Error("Environment unsupported.")
 
-  if process?.versions?.node
+  if process?.versions?.node?
     fs = nodeRequire 'fs'
 
     fetchText = (path) ->
@@ -69,7 +69,7 @@ define (require) ->
       callback content
 
 
-  if process?
+  if process?.versions?.node?
     jade.Parser::parseInclude = ->
       baseUrl = require.toUrl '.'
 
@@ -79,12 +79,15 @@ define (require) ->
       str = fetchText baseUrl + path
 
       parser = new jade.Parser str, path, @options
-      @context parser
+      parser.blocks = jade.utils.merge {}, @blocks
+      parser.mixins = @mixins
 
+      @context parser
       ast = parser.parse()
       @context()
       ast.filename = path
-      ast.includeBlock().push @block() if "indent" is @peek().type
+
+      ast.includeBlock().push(@block()) if "indent" is @peek().type
 
       return ast
 
