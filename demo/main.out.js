@@ -4080,10 +4080,9 @@ var interp;
 __jade.unshift({ lineno: 1, filename: __jade[0].filename });
 __jade.unshift({ lineno: 1, filename: __jade[0].filename });
 buf.push('<h2>');
+var __val__ = heading
+buf.push(escape(null == __val__ ? "" : __val__));
 __jade.unshift({ lineno: undefined, filename: __jade[0].filename });
-__jade.unshift({ lineno: 1, filename: __jade[0].filename });
-buf.push('Layout');
-__jade.shift();
 __jade.shift();
 buf.push('</h2>');
 __jade.shift();
@@ -4118,10 +4117,9 @@ __jade.unshift({ lineno: 1, filename: __jade[0].filename });
 __jade.unshift({ lineno: 1, filename: "templates/layout.jade" });
 __jade.unshift({ lineno: 1, filename: __jade[0].filename });
 buf.push('<h2>');
+var __val__ = heading
+buf.push(escape(null == __val__ ? "" : __val__));
 __jade.unshift({ lineno: undefined, filename: __jade[0].filename });
-__jade.unshift({ lineno: 1, filename: __jade[0].filename });
-buf.push('Layout');
-__jade.shift();
 __jade.shift();
 buf.push('</h2>');
 __jade.shift();
@@ -4151,11 +4149,14 @@ define('main',['require','j!templates/template','j!templates/layout_copy'],funct
 
   $(document).ready(function() {
     $('body').append('<h1>Testing include</h1>');
-    $('body').append(layoutCopy());
+    $('body').append(layoutCopy({
+      heading: 'Layout'
+    }));
 
     $('body').append('<h1>Testing extends</h1>');
     $('body').append(template());
   });
 });
+
 require(["main"]);
 }());
