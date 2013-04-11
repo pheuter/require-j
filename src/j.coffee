@@ -5,6 +5,7 @@ global.window ?= {} if global?
 define (require) ->
   jade = require 'jade'
   {compile} = jade
+  runtime = require 'runtime'
 
   progIds = [
     "Msxml2.XMLHTTP"
@@ -118,7 +119,6 @@ define (require) ->
       path = parentRequire.toUrl name + '.jade'
 
       fetchText path, (text) ->
-        runtime = require 'runtime'
         func = compile text,
           client: true
 

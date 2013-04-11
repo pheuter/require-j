@@ -4333,7 +4333,6 @@ return buf.join("");
 define('main',['require','j!templates/template','j!templates/layout_copy'],function(require) {
   var template = require('j!templates/template');
   var layoutCopy = require('j!templates/layout_copy');
-  // var runtime = require('runtime');
 
   $(document).ready(function() {
     var context = {
