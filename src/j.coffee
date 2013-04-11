@@ -5,13 +5,14 @@ global.window ?= {} if global?
 define (require) ->
   jade = require 'jade'
   {compile} = jade
+  runtime = require 'runtime'
 
   progIds = [
     "Msxml2.XMLHTTP"
     "Microsoft.XMLHTTP"
     "Msxml2.XMLHTTP.4.0"
   ]
-  
+
   fetchText = ->
     throw new Error("Environment unsupported.")
 

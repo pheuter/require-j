@@ -8,7 +8,8 @@
   optimize: "none",
   paths: {
     jade: "../lib/jade/jade",
-    j: "../lib/j"
+    j: "../lib/j",
+    runtime: "../lib/jade/runtime"
   },
   stubModules: [
     "j"
@@ -16,6 +17,9 @@
   shim: {
     jade: {
       exports: "window.jade"
+    },
+    runtime: {
+      exports: "jade"
     }
   }
 })
