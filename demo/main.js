@@ -3,10 +3,14 @@ define(function(require) {
   var layoutCopy = require('j!templates/layout_copy');
 
   $(document).ready(function() {
+    var context = {
+      heading: 'Layout'
+    };
+
     $('body').append('<h1>Testing include</h1>');
-    $('body').append(layoutCopy());
+    $('body').append(layoutCopy(context));
 
     $('body').append('<h1>Testing extends</h1>');
-    $('body').append(template());
+    $('body').append(template(context));
   });
 });
