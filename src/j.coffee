@@ -11,7 +11,7 @@ define (require) ->
     "Microsoft.XMLHTTP"
     "Msxml2.XMLHTTP.4.0"
   ]
-  
+
   fetchText = ->
     throw new Error("Environment unsupported.")
 
@@ -118,6 +118,7 @@ define (require) ->
       path = parentRequire.toUrl name + '.jade'
 
       fetchText path, (text) ->
+        runtime = require 'runtime'
         func = compile text,
           client: true
 
