@@ -1,6 +1,6 @@
 # require-j
 
-Require-j is a Jade plugin that supports client-side Jade rendering, including inheritance, extends and include.
+Require-j is a Jade plugin which enales inheritance, extends and include during client side rendering.
 
 
 ## About
@@ -12,9 +12,9 @@ When we build websites, it is natural to break the layout templates into separat
 This works great during server rendering, but not during client rendering. 
 
 
-When rendering templates on the server,  to load templates, jade depends on certain node modules (such as `path` and `fs`) to exist during runtime and uses `require` to access them. 
+When loading templates on the server,   jade depends on certain node modules (such as `path` and `fs`) to exist during runtime and uses `require` to access them. 
 
-When rendering Jade on the client, this does not work.
+Without **require-j** loading Jade on the client does not work.
 The [problem](https://github.com/rocketlabsdev/require-jade/issues/11) is that node's `require` is replaced by RequireJS's `require` which has no notion of node modules.
 
 To address this issue, **require-j** overrides jade's default [parseInclude](https://github.com/visionmedia/jade/blob/master/jade.js#L3123-L3164) and [parseExtends](https://github.com/visionmedia/jade/blob/master/jade.js#L3062-L3085) functions with a variant that utilizes RequireJS APIs, such as [toUrl](http://requirejs.org/docs/plugins.html#apiload) and `fetchText`. *This is achieved without any modifications to the jade library.*
