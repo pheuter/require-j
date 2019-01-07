@@ -1,12 +1,21 @@
 # require-j
 
-RequireJS Jade plugin that supports client-side Jade rendering, including template inheritance.
+Require-j is a Jade plugin which enables inheritance ( extends and include) during client side rendering.
+
 
 ## About
 
-**require-j** attempts to fill the gap left by porting jade over to the client, namely the ability to use template inheritance constructs such as [extends](https://github.com/visionmedia/jade#template-inheritance) and [include](https://github.com/visionmedia/jade#includes).
+When rendering Jade on the client, 
+**require-j** adds the ability to use template inheritance constructs [extends](https://github.com/visionmedia/jade#template-inheritance) and [include](https://github.com/visionmedia/jade#includes), both of which need to read other templates files.  Let me explain why that is needed. 
 
-To load templates, jade depends on certain node modules (such as `path` and `fs`) to exist during runtime and uses `require` to access them. The [problem](https://github.com/rocketlabsdev/require-jade/issues/11) is that node's `require` is replaced by RequireJS's `require` which has no notion of node modules.
+When we build websites, it is natural to break the layout templates into separate files which get merged at render time. 
+This works great during server rendering, but not during client rendering. 
+
+
+When loading templates on the server,   jade depends on certain node modules (such as `path` and `fs`) to exist during runtime and uses `require` to access them. But on the client, node's `require` 
+is replaced by RequireJS's `require` which has no notion of node modules.
+Since these Node.js modules [do not exist on the client](https://github.com/rocketlabsdev/require-jade/issues/11), 
+without **require-j**, Jade inheritance on the client does not work. 
 
 To address this issue, **require-j** overrides jade's default [parseInclude](https://github.com/visionmedia/jade/blob/master/jade.js#L3123-L3164) and [parseExtends](https://github.com/visionmedia/jade/blob/master/jade.js#L3062-L3085) functions with a variant that utilizes RequireJS APIs, such as [toUrl](http://requirejs.org/docs/plugins.html#apiload) and `fetchText`. *This is achieved without any modifications to the jade library.*
 
